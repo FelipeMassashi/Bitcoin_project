@@ -26,8 +26,13 @@ describe("formatSignedPercent", () => {
     expect(formatSignedPercent(-0.05)).toBe("−5,00%");
   });
 
-  it("zero não leva sinal", () => {
+  it("zero não leva sinal, nem quando o valor só arredonda para zero", () => {
     expect(formatSignedPercent(0)).toBe("0,00%");
+    expect(formatSignedPercent(-0.004, 0)).toBe("0%");
+  });
+
+  it("aceita menos casas decimais", () => {
+    expect(formatSignedPercent(0.4801, 0)).toBe("+48%");
   });
 });
 

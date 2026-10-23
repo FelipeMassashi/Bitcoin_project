@@ -56,6 +56,14 @@ _Avoid_: Recomendação, previsão
 Faixa do Sinal composto: compra (abaixo de 35), neutro (35 a 65) ou venda (acima de 65).
 _Avoid_: Sinal de compra, ordem
 
+**Ciclo do halving**:
+Período entre um halving (quando a recompensa por bloco cai pela metade) e o seguinte, de cerca de 4 anos.
+_Avoid_: Ciclo de 4 anos (quando se refere a datas exatas)
+
+**Topo do ciclo**:
+A maior máxima nos dois primeiros anos depois do halving que abre o Ciclo.
+_Avoid_: Máxima histórica (são coisas diferentes)
+
 ### Metas
 
 **Meta**:

@@ -17,7 +17,7 @@ export function Segmented<T extends string>({
   return (
     <fieldset className="inline-flex">
       <legend className="sr-only">{label}</legend>
-      <div className="inline-flex rounded-control border border-line p-0.5">
+      <div className="inline-flex flex-wrap rounded-control border border-line p-0.5">
         {options.map((option) => (
           <label
             key={option.value}

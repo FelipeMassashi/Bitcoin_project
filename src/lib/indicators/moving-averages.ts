@@ -27,7 +27,7 @@ export function bollinger(values: readonly number[], period = 20, k = 2): (Bolli
 const DAY_MS = 86_400_000;
 
 /** Início (segunda 00:00 UTC) da semana que contém `time`. */
-function weekStart(time: number): number {
+export function weekStart(time: number): number {
   const daysSinceMonday = (new Date(time).getUTCDay() + 6) % 7;
   return Math.floor(time / DAY_MS) * DAY_MS - daysSinceMonday * DAY_MS;
 }

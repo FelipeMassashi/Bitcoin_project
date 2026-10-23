@@ -7,52 +7,52 @@
  */
 :root {
   color-scheme: light;
-  --paper: #f4f2ee;
-  --surface: #fbfaf8;
-  --ink: #23201c;
-  --muted: #6a6359;
-  --line: #e2ddd5;
-  --line-strong: #cfc8bd;
-  --accent: #94641e;
-  --accent-soft: #efe5d4;
-  --up: #2d7550;
-  --down: #ad4436;
-  --up-soft: #e3eee6;
-  --down-soft: #f5e4e0;
+  --paper: #faf9f7;
+  --surface: #ffffff;
+  --ink: #1d1c1a;
+  --muted: #6c6862;
+  --line: #eceae6;
+  --line-strong: #d9d6d0;
+  --accent: #9a6812;
+  --accent-soft: #f6eedf;
+  --up: #2e7d55;
+  --down: #b4473b;
+  --up-soft: #e4f0e8;
+  --down-soft: #f7e6e3;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="claro"]) {
     color-scheme: dark;
-    --paper: #1a1816;
-    --surface: #221f1c;
-    --ink: #eae4da;
-    --muted: #a69e92;
-    --line: #35312c;
-    --line-strong: #4a453e;
-    --accent: #d2a15a;
-    --accent-soft: #3a2f20;
-    --up: #79b48f;
-    --down: #e08a7d;
-    --up-soft: #1f2e25;
-    --down-soft: #3a2421;
+    --paper: #141312;
+    --surface: #1c1b19;
+    --ink: #eeece8;
+    --muted: #9d9890;
+    --line: #2c2a27;
+    --line-strong: #403d39;
+    --accent: #e5ad4b;
+    --accent-soft: #2e261a;
+    --up: #6fbf8e;
+    --down: #e8877a;
+    --up-soft: #1b2b21;
+    --down-soft: #35211e;
   }
 }
 
 :root[data-theme="escuro"] {
   color-scheme: dark;
-  --paper: #1a1816;
-  --surface: #221f1c;
-  --ink: #eae4da;
-  --muted: #a69e92;
-  --line: #35312c;
-  --line-strong: #4a453e;
-  --accent: #d2a15a;
-  --accent-soft: #3a2f20;
-  --up: #79b48f;
-  --down: #e08a7d;
-  --up-soft: #1f2e25;
-  --down-soft: #3a2421;
+  --paper: #141312;
+  --surface: #1c1b19;
+  --ink: #eeece8;
+  --muted: #9d9890;
+  --line: #2c2a27;
+  --line-strong: #403d39;
+  --accent: #e5ad4b;
+  --accent-soft: #2e261a;
+  --up: #6fbf8e;
+  --down: #e8877a;
+  --up-soft: #1b2b21;
+  --down-soft: #35211e;
 }
 
 @theme inline {
@@ -69,7 +69,7 @@
   --color-up-soft: var(--up-soft);
   --color-down-soft: var(--down-soft);
 
-  --font-sans: var(--font-plex);
+  --font-sans: var(--font-manrope);
 
   /* Escala de raios: controles pequenos e painéis. Nada além disso. */
   --radius-control: 6px;
@@ -84,7 +84,7 @@
 body {
   background: var(--paper);
   color: var(--ink);
-  font-family: var(--font-plex), system-ui, sans-serif;
+  font-family: var(--font-manrope), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 

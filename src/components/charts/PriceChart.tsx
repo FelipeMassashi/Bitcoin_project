@@ -104,7 +104,7 @@ export function PriceChart({ candles, overlays, currency, intraday, visibleFrom,
     if (!container.current) return;
     const c = createChart(container.current, {
       autoSize: true,
-      layout: { attributionLogo: false, fontFamily: "var(--font-plex), system-ui, sans-serif", fontSize: 11 },
+      layout: { attributionLogo: false, fontFamily: "var(--font-manrope), system-ui, sans-serif", fontSize: 11 },
       crosshair: { mode: CrosshairMode.Normal },
       rightPriceScale: { borderVisible: false, scaleMargins: { top: 0.08, bottom: 0.22 } },
       timeScale: { borderVisible: false, rightOffset: 4, minBarSpacing: 0.3 },

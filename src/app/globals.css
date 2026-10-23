@@ -1,26 +1,108 @@
 @import "tailwindcss";
 
+/*
+ * Tokens de design: o único lugar onde as cores existem.
+ * Os gráficos leem estas mesmas variáveis (src/lib/theme-colors.ts) e trocam junto com a página.
+ * Todos os pares texto/fundo passam AA (≥ 4,5:1) nos dois temas.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  color-scheme: light;
+  --paper: #f4f2ee;
+  --surface: #fbfaf8;
+  --ink: #23201c;
+  --muted: #6a6359;
+  --line: #e2ddd5;
+  --line-strong: #cfc8bd;
+  --accent: #94641e;
+  --accent-soft: #efe5d4;
+  --up: #2d7550;
+  --down: #ad4436;
+  --up-soft: #e3eee6;
+  --down-soft: #f5e4e0;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  :root:not([data-theme="claro"]) {
+    color-scheme: dark;
+    --paper: #1a1816;
+    --surface: #221f1c;
+    --ink: #eae4da;
+    --muted: #a69e92;
+    --line: #35312c;
+    --line-strong: #4a453e;
+    --accent: #d2a15a;
+    --accent-soft: #3a2f20;
+    --up: #79b48f;
+    --down: #e08a7d;
+    --up-soft: #1f2e25;
+    --down-soft: #3a2421;
   }
 }
 
+:root[data-theme="escuro"] {
+  color-scheme: dark;
+  --paper: #1a1816;
+  --surface: #221f1c;
+  --ink: #eae4da;
+  --muted: #a69e92;
+  --line: #35312c;
+  --line-strong: #4a453e;
+  --accent: #d2a15a;
+  --accent-soft: #3a2f20;
+  --up: #79b48f;
+  --down: #e08a7d;
+  --up-soft: #1f2e25;
+  --down-soft: #3a2421;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-up: var(--up);
+  --color-down: var(--down);
+  --color-up-soft: var(--up-soft);
+  --color-down-soft: var(--down-soft);
+
+  --font-sans: var(--font-plex);
+
+  /* Escala de raios: controles pequenos e painéis. Nada além disso. */
+  --radius-control: 6px;
+  --radius-panel: 10px;
+
+  /* Escala tipográfica (razão ~1,25 a partir de 16 px). */
+  --text-figure: 3.5rem;
+  --text-figure--line-height: 1;
+  --text-figure--letter-spacing: -0.03em;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-plex), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Todo número do site usa algarismos de largura fixa: nada "pula" ao atualizar. */
+.num {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

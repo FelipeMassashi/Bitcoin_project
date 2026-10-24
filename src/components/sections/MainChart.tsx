@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { PriceChart, type Overlay } from "@/components/charts/PriceChart";
+import { PriceChart, type Overlay, type PriceLevel, type TradeMarker } from "@/components/charts/PriceChart";
 import { Explain } from "@/components/ui/Explain";
 import { Segmented } from "@/components/ui/Segmented";
 import { Skeleton } from "@/components/ui/Skeleton";
@@ -11,7 +11,11 @@ import { bollinger, sma, weeklyMovingAverage } from "@/lib/indicators/moving-ave
 import { BTC_SYMBOL, candleIn } from "@/lib/market/currency";
 import { useLiveTickers } from "@/lib/market/live";
 import { useDailySeries, useIntraday } from "@/lib/market/queries";
+import { usePortfolioView } from "@/lib/portfolio/use-portfolio-view";
 import { useCurrency } from "@/lib/preferences";
+
+/** Meta padrão até a calculadora de Metas existir. */
+const DEFAULT_GOAL = 0.25;
 
 const DAY = 86_400_000;
 const PERIODS = [
@@ -84,6 +88,29 @@ export function MainChart() {
     }
     return list;
   }, [allOverlays, enabled, intraday]);
+
+  // Preço médio, Preço-alvo e Aportes do Visitante, quando informados.
+  const { position, stored } = usePortfolioView();
+  // Marcadores só para Aportes cadastrados um a um (ADR 0002), não para o Total investido com data aproximada.
+  const detailed = stored?.cost?.kind === "aportes";
+  const average = position?.averagePrice?.[currency];
+  const levels = useMemo<PriceLevel[]>(
+    () =>
+      average
+        ? [
+            { price: average, label: "seu preço médio", color: "ink" },
+            { price: average * (1 + DEFAULT_GOAL), label: "alvo +25%", color: "accent" },
+          ]
+        : [],
+    [average],
+  );
+  const markers = useMemo<TradeMarker[]>(
+    () =>
+      intraday || !position || !detailed
+        ? []
+        : position.entries.flatMap((e) => (e.date === null ? [] : [{ time: Math.floor(e.date / DAY) * DAY, kind: e.kind }])),
+    [position, intraday, detailed],
+  );
 
   const intradayCandles = intradayQuery.data?.[currency === "BRL" ? "brl" : "usd"] ?? [];
   const candles = intraday ? intradayCandles : dailyCandles;
@@ -166,6 +193,15 @@ export function MainChart() {
         <span className="inline-flex items-center gap-1 text-[0.82rem] text-muted">
           Volume <Explain id="volume" now={now.volume} />
         </span>
+        {average && (
+          <span className="inline-flex items-center gap-1 text-[0.82rem] text-muted">
+            Seu preço médio e alvo{" "}
+            <Explain
+              id="precoAlvo"
+              now={`Preço médio ${fmt(average)}; alvo de +25% em ${fmt(average * (1 + DEFAULT_GOAL))}.${price ? ` O preço atual está ${distance(price, average * (1 + DEFAULT_GOAL), "meta")}.` : ""}`}
+            />
+          </span>
+        )}
         {intraday && <span className="text-xs text-muted">As médias valem para os períodos de 1 mês em diante.</span>}
       </div>
 
@@ -184,6 +220,8 @@ export function MainChart() {
             intraday={intraday}
             visibleFrom={visibleFrom}
             live={live}
+            levels={levels}
+            markers={markers}
           />
         )}
       </div>

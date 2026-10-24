@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { formatBtc, formatMoney, formatSignedMoney, formatSignedPercent } from "./format";
+import { formatBtc, formatMoney, formatSignedMoney, formatSignedPercent, parseDecimal } from "./format";
 
 const NBSP = " ";
 
@@ -40,5 +40,24 @@ describe("formatBtc", () => {
   it("usa até 8 casas decimais e remove zeros à direita", () => {
     expect(formatBtc(0.12345678)).toBe("0,12345678 BTC");
     expect(formatBtc(1.5)).toBe("1,5 BTC");
+  });
+});
+
+describe("parseDecimal", () => {
+  it("entende valores digitados no padrão brasileiro", () => {
+    expect(parseDecimal("10.000,50", "money")).toBe(10000.5);
+    expect(parseDecimal("R$ 1.234", "money")).toBe(1234);
+    expect(parseDecimal("1234,5", "money")).toBe(1234.5);
+  });
+
+  it("em quantidade de bitcoin, ponto sozinho é casa decimal", () => {
+    expect(parseDecimal("0.05", "btc")).toBe(0.05);
+    expect(parseDecimal("0,0012", "btc")).toBe(0.0012);
+  });
+
+  it("devolve null para texto vazio ou inválido", () => {
+    expect(parseDecimal("", "money")).toBeNull();
+    expect(parseDecimal("abc", "btc")).toBeNull();
+    expect(parseDecimal("1,2,3", "money")).toBeNull();
   });
 });

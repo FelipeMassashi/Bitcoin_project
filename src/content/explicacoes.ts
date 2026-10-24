@@ -115,6 +115,56 @@ export const explicacoes = {
     oQueE: "Cada quadrado é a variação do preço em um mês, do fechamento do mês anterior ao fechamento daquele mês.",
     paraQueServe: "Ajuda a ver padrões de sazonalidade e a lembrar que meses de queda forte são comuns mesmo em anos muito bons.",
   },
+  quantidade: {
+    titulo: "Quantidade de bitcoin",
+    oQueE: "Quanto bitcoin você tem: lido da sua conta na Binance (Spot, Funding e Simple Earn) ou informado por você.",
+    paraQueServe: "Multiplicada pelo preço atual, dá quanto o seu bitcoin vale hoje.",
+  },
+  patrimonio: {
+    titulo: "Patrimônio em BTC",
+    oQueE: "Quanto o seu bitcoin vale agora: quantidade × preço atual, na moeda escolhida.",
+    paraQueServe: "É o valor que você receberia, antes de taxas, se vendesse tudo neste momento.",
+  },
+  totalInvestido: {
+    titulo: "Total investido",
+    oQueE: "Quanto você pagou pelo bitcoin que ainda tem. Cada aporte é convertido para reais e dólares pela cotação do dia em que foi feito.",
+    paraQueServe: "É a base para saber se você está no lucro ou no prejuízo.",
+  },
+  precoMedio: {
+    titulo: "Preço médio",
+    oQueE: "Quanto, em média, você pagou por 1 bitcoin: Total investido ÷ quantidade. Vendas diminuem a quantidade, mas não mudam o preço médio.",
+    paraQueServe: "Se o preço atual está acima dele, você está no lucro. É também a partir dele que se calcula a sua meta.",
+  },
+  lucroNaoRealizado: {
+    titulo: "Lucro ou prejuízo não realizado",
+    oQueE: "Diferença entre quanto o seu bitcoin vale hoje e quanto você pagou por ele. Só vira dinheiro de fato se você vender.",
+    paraQueServe: "Mostra como está o seu investimento agora. Em reais e em dólares o resultado pode ser diferente, porque o dólar também varia.",
+  },
+  lucroRealizado: {
+    titulo: "Lucro realizado",
+    oQueE: "Resultado das vendas que você registrou: (preço de venda − preço médio) × quantidade vendida.",
+    paraQueServe: "Separa o que você já ganhou ou perdeu de verdade do que ainda depende do preço.",
+  },
+  precoAlvo: {
+    titulo: "Preço-alvo",
+    oQueE: "O preço do bitcoin em que você teria 25% de lucro sobre o seu preço médio.",
+    paraQueServe: "No gráfico, a linha tracejada âmbar é o preço-alvo (meta padrão de +25%) e a escura é o seu preço médio: mostram quão longe o preço está de cada um.",
+  },
+  valorVsAportado: {
+    titulo: "Valor × investido",
+    oQueE: "A linha cheia é quanto o seu bitcoin valia em cada dia; a tracejada, quanto você tinha investido até aquele dia.",
+    paraQueServe: "Quando a linha cheia está acima da tracejada, você estava no lucro naquele dia.",
+  },
+  lucroPorAporte: {
+    titulo: "Resultado por aporte",
+    oQueE: "Para cada aporte: quanto pagou, quanto aquele bitcoin vale hoje e a diferença.",
+    paraQueServe: "Mostra quais aportes foram feitos em bons momentos e quais ainda estão no prejuízo.",
+  },
+  dca: {
+    titulo: "Comparação com DCA mensal",
+    oQueE: "DCA é investir o mesmo valor todo mês, sem tentar acertar o momento. Aqui tudo o que você aportou é dividido em compras mensais iguais, do seu primeiro aporte até hoje.",
+    paraQueServe: "Mostra se escolher os momentos dos aportes ajudou ou atrapalhou, comparado com comprar no automático.",
+  },
 } satisfies Record<string, Explicacao>;
 
 export type ExplicacaoId = keyof typeof explicacoes;

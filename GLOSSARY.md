@@ -19,7 +19,7 @@ Uma aquisição de BTC informada pelo Visitante, com data, valor pago e, opciona
 _Avoid_: Compra, trade, transação
 
 **Total investido**:
-Soma dos Custos dos aportes, ou o valor único que o Visitante declarou quando não detalha Aportes.
+Custo do BTC ainda em posse: soma dos Custos dos aportes (ou o valor único que o Visitante declarou quando não detalha Aportes), menos a parte do custo que saiu com cada venda.
 _Avoid_: Patrimônio, saldo, valor aplicado
 
 **Custo do aporte**:

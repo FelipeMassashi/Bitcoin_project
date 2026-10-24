@@ -36,3 +36,16 @@ const btcFormatter = new Intl.NumberFormat("pt-BR", { maximumFractionDigits: 8 }
 export function formatBtc(amount: number): string {
   return `${btcFormatter.format(amount)} BTC`;
 }
+
+/**
+ * Lê um número digitado: "10.000,50" → 10000.5. Em valores em dinheiro, ponto separa milhares;
+ * em quantidade de bitcoin, um ponto sem vírgula é a casa decimal ("0.05").
+ */
+export function parseDecimal(text: string, kind: "money" | "btc"): number | null {
+  let t = text.replace(/[^\d.,]/g, "");
+  if (!t || (t.match(/,/g)?.length ?? 0) > 1) return null;
+  if (t.includes(",")) t = t.replace(/\./g, "").replace(",", ".");
+  else if (kind === "money" || (t.match(/\./g)?.length ?? 0) > 1) t = t.replace(/\./g, "");
+  const value = Number(t);
+  return Number.isFinite(value) ? value : null;
+}

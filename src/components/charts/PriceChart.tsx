@@ -9,7 +9,10 @@ import {
   LineStyle,
   TickMarkType,
   createChart,
+  createSeriesMarkers,
   type IChartApi,
+  type IPriceLine,
+  type ISeriesMarkersPluginApi,
   type ISeriesApi,
   type Time,
   type UTCTimestamp,
@@ -27,6 +30,11 @@ export type Overlay = {
   dashed?: boolean;
 };
 
+/** Linha horizontal de referência (Preço médio, Preço-alvo). */
+export type PriceLevel = { price: number; label: string; color: keyof ThemeColors };
+/** Aporte ou venda do Visitante, no dia (UTC) em que aconteceu. */
+export type TradeMarker = { time: number; kind: "aporte" | "venda" };
+
 type Props = {
   candles: readonly Candle[];
   overlays: readonly Overlay[];
@@ -36,6 +44,8 @@ type Props = {
   visibleFrom: number;
   /** Preço ao vivo para atualizar a última vela sem redesenhar a série inteira. */
   live?: number;
+  levels?: readonly PriceLevel[];
+  markers?: readonly TradeMarker[];
 };
 
 const toTime = (ms: number) => Math.floor(ms / 1000) as UTCTimestamp;
@@ -70,12 +80,14 @@ function timeFormats(intraday: boolean) {
 type Bar = Omit<Candle, "volume">;
 type Legend = { candle: Bar; overlays: { label: string; value: number | null; color: string }[] };
 
-export function PriceChart({ candles, overlays, currency, intraday, visibleFrom, live }: Props) {
+export function PriceChart({ candles, overlays, currency, intraday, visibleFrom, live, levels = [], markers = [] }: Props) {
   const container = useRef<HTMLDivElement>(null);
   const chart = useRef<IChartApi | null>(null);
   const candleSeries = useRef<ISeriesApi<"Candlestick"> | null>(null);
   const volumeSeries = useRef<ISeriesApi<"Histogram"> | null>(null);
   const lineSeries = useRef<ISeriesApi<"Line">[]>([]);
+  const levelLines = useRef<IPriceLine[]>([]);
+  const markerPlugin = useRef<ISeriesMarkersPluginApi<Time> | null>(null);
   const liveBarRef = useRef<Bar | null>(null);
   const colors = useThemeColors();
   // Índice da vela sob o cursor; null mostra a última.
@@ -118,11 +130,14 @@ export function PriceChart({ candles, overlays, currency, intraday, visibleFrom,
       priceLineVisible: false,
     });
     c.priceScale("volume").applyOptions({ scaleMargins: { top: 0.84, bottom: 0 } });
+    markerPlugin.current = createSeriesMarkers(candleSeries.current, []);
     chart.current = c;
     return () => {
       c.remove();
       chart.current = null;
       lineSeries.current = [];
+      levelLines.current = [];
+      markerPlugin.current = null;
     };
   }, []);
 
@@ -188,6 +203,39 @@ export function PriceChart({ candles, overlays, currency, intraday, visibleFrom,
       return s;
     });
   }, [candles, overlays, colors]);
+
+  // Preço médio e Preço-alvo do Visitante.
+  useEffect(() => {
+    const s = candleSeries.current;
+    if (!s || !colors) return;
+    levelLines.current.forEach((line) => s.removePriceLine(line));
+    levelLines.current = levels.map((l) =>
+      s.createPriceLine({
+        price: l.price,
+        color: colors[l.color],
+        lineWidth: 1,
+        lineStyle: LineStyle.Dashed,
+        axisLabelVisible: true,
+        title: l.label,
+      }),
+    );
+  }, [levels, colors]);
+
+  // Marcadores dos Aportes e vendas, presos à vela do dia.
+  useEffect(() => {
+    if (!colors) return;
+    const times = new Set(candles.map((k) => k.time));
+    markerPlugin.current?.setMarkers(
+      markers
+        .filter((m) => times.has(m.time))
+        .sort((a, b) => a.time - b.time)
+        .map((m) =>
+          m.kind === "aporte"
+            ? { time: toTime(m.time), position: "belowBar", shape: "arrowUp", color: colors.accent, size: 1 }
+            : { time: toTime(m.time), position: "aboveBar", shape: "arrowDown", color: colors.down, size: 1 },
+        ),
+    );
+  }, [markers, candles, colors]);
 
   // Janela visível: só muda quando o período ou os dados mudam, não ao trocar tema ou linhas.
   useEffect(() => {

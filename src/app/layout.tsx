@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Manrope } from "next/font/google";
+import { PortfolioDialog } from "@/components/portfolio/PortfolioDialog";
 import { Sidebar } from "@/components/shell/Sidebar";
 import { Providers } from "./providers";
 import "./globals.css";
@@ -40,6 +41,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <div className="mx-auto max-w-[72rem]">{children}</div>
             </main>
           </div>
+          <PortfolioDialog />
         </Providers>
       </body>
     </html>

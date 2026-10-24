@@ -41,10 +41,10 @@ const disconnected = () => {
 
 /** Quantidade de BTC da conta conectada. Confere de novo as permissões: a chave pode ter sido editada na Binance. */
 export async function GET(request: NextRequest) {
-  const limited = rateLimited(limiter, request);
-  if (limited) return limited;
   const key = encryptionKey();
   if (!key) return missingKeyResponse();
+  const limited = rateLimited(limiter, request);
+  if (limited) return limited;
 
   const token = request.cookies.get(CREDENTIALS_COOKIE)?.value;
   const credentials = token ? openCredentials(token, key) : null;

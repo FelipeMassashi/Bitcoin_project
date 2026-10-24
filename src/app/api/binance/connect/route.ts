@@ -21,10 +21,10 @@ const body = z.object({ apiKey: keyField, secret: keyField });
 /** Valida a chave (somente leitura), lê o saldo e guarda as credenciais cifradas num cookie httpOnly. */
 export async function POST(request: NextRequest) {
   if (!fromSameSite(request)) return json({ code: "origem", error: "Requisição recusada." }, 403);
-  const limited = rateLimited(limiter, request);
-  if (limited) return limited;
   const key = encryptionKey();
   if (!key) return missingKeyResponse();
+  const limited = rateLimited(limiter, request);
+  if (limited) return limited;
 
   const parsed = body.safeParse(await request.json().catch(() => null));
   if (!parsed.success) {

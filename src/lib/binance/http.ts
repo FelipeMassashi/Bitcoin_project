@@ -32,7 +32,16 @@ export function encryptionKey(): string | null {
 }
 
 export const missingKeyResponse = () =>
-  json({ code: "indisponivel", error: "A conexão com a Binance não está ativa neste servidor." }, 503);
+  json(
+    {
+      code: "indisponivel",
+      error:
+        process.env.NODE_ENV === "development"
+          ? "Falta a ENCRYPTION_KEY no .env.local (veja o .env.example) e reiniciar o npm run dev."
+          : "A conexão com a Binance não está ativa neste servidor.",
+    },
+    503,
+  );
 
 /** Só aceita POST vindo do próprio site (o cookie SameSite=Strict já impede o resto). */
 export function fromSameSite(request: NextRequest): boolean {

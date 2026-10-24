@@ -1,8 +1,44 @@
 # Bitcoin em perspectiva
 
+[![CI](https://github.com/FelipeMassashi/Bitcoin_project/actions/workflows/ci.yml/badge.svg)](https://github.com/FelipeMassashi/Bitcoin_project/actions/workflows/ci.yml)
+[![Deploy](https://github.com/FelipeMassashi/Bitcoin_project/actions/workflows/deploy.yml/badge.svg)](https://github.com/FelipeMassashi/Bitcoin_project/actions/workflows/deploy.yml)
+
+**No ar em https://bitcoin-em-perspectiva.vercel.app**
+
 Painel público para acompanhar bitcoin em reais e dólares. Mostra o preço ao vivo, os picos e as mínimas de cada mês, indicadores explicados em linguagem simples e simulações baseadas no histórico. Também mostra a sua posição, se você conectar a Binance ou informar o seu investimento à mão.
 
 Ferramenta de análise. Não é recomendação de investimento. Nenhuma estimativa daqui é previsão: são faixas e chances calculadas com o que já aconteceu, sempre com o cálculo à vista.
+
+![Visão geral no tema escuro](docs/screenshots/visao-geral-escuro.png)
+
+<p>
+  <img src="docs/screenshots/celular-escuro.png" alt="Visão geral no celular, tema escuro" width="260">
+  <img src="docs/screenshots/celular-claro.png" alt="Visão geral no celular, tema claro" width="260">
+</p>
+
+## O que dá para fazer
+
+| Tela | Para quê |
+|---|---|
+| **Visão geral** | Preço ao vivo em reais e dólares, o sinal de caro ou barato de hoje, a sua posição e o gráfico principal com médias móveis e Bandas de Bollinger. |
+| **Mercado** | Os indicadores um a um, o histórico de cada um, os picos e as mínimas de cada mês, o mapa de calor de retornos mensais e o ciclo do halving. |
+| **Meu portfólio** | Valor do seu bitcoin contra o que você investiu, o resultado de cada aporte e a comparação com comprar um valor fixo todo mês. |
+| **Metas & projeções** | A que preço o bitcoin precisa chegar para a sua meta, quanto tempo uma alta assim costumou levar e as chances pelo Monte Carlo. |
+| **Configurações** | Tema, moeda, a chave da Binance e o que este navegador guarda, com botões para apagar tudo. |
+
+Cada número tem um ⓘ que explica o que é, para que serve e o que ele está dizendo agora.
+
+<details>
+<summary>Mais telas</summary>
+
+![Metas & projeções no tema escuro](docs/screenshots/metas-escuro.png)
+![Mercado no tema claro](docs/screenshots/mercado-claro.png)
+
+</details>
+
+## Feito com
+
+Next.js 16 (App Router), React 19, TypeScript, Tailwind CSS 4, lightweight-charts e Recharts nos gráficos, TanStack Query, Zod, Vitest, [ShaderGradient](https://shadergradient.co/) e [Cult UI](https://www.cult-ui.com/).
 
 ## Rodar no seu computador
 
@@ -103,18 +139,32 @@ O simulador compra um valor fixo toda semana ou todo mês, pelo fechamento real 
 - **Reais antes de outubro de 2020:** BTC/USD multiplicado pelo dólar PTAX do Banco Central.
 - **Medo e ganância:** alternative.me, com histórico desde fevereiro de 2018.
 
-## Publicar
+## Publicar (grátis, na Vercel)
 
-O projeto já traz dois workflows do GitHub Actions:
+O site roda no plano Hobby da Vercel, que é gratuito para uso pessoal, na região de São Paulo (`gru1`). A publicação é feita pelo GitHub Actions:
 
-- **`ci.yml`:** lint, typecheck, testes e build em cada push e pull request.
-- **`deploy.yml`:** publica no Vercel (região `gru1`, São Paulo) depois que o CI passa na `main`.
+- **`ci.yml`:** lint, typecheck, testes, build e uma checagem de que nenhum segredo foi parar no código do navegador, em cada push e pull request.
+- **`deploy.yml`:** publica na Vercel quando o CI passa na `main`. Também dá para disparar à mão em Actions → Deploy → Run workflow.
 
-Para usar:
+A Vercel não publica sozinha a cada push (`git.deploymentEnabled: false` no `vercel.json`). Só versões que passaram no CI vão para o ar.
 
-1. Crie um repositório no GitHub e envie este projeto para ele.
-2. Crie um projeto no Vercel apontando para o repositório e cadastre `ENCRYPTION_KEY` nas variáveis de ambiente de produção.
-3. No GitHub, cadastre os secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID` e `VERCEL_PROJECT_ID`.
+### Primeira vez
+
+Rode o assistente na raiz do projeto, com o [GitHub CLI](https://cli.github.com/) logado (`gh auth login`):
+
+```bash
+./scripts/publicar.sh
+```
+
+Ele leva uns 5 minutos e faz o seguinte:
+
+1. Abre a Vercel para você criar a conta (entre com o GitHub).
+2. Pede o token da Vercel, que você cola sem ele aparecer na tela.
+3. Cria e vincula o projeto `bitcoin-em-perspectiva`.
+4. Gera a `ENCRYPTION_KEY` e a guarda direto na Vercel. Ninguém precisa vê-la.
+5. Cadastra os secrets `VERCEL_TOKEN`, `VERCEL_ORG_ID` e `VERCEL_PROJECT_ID` no GitHub e dispara a primeira publicação.
+
+Depois disso, todo push na `main` que passar no CI vai para o ar sozinho.
 
 ## Visual
 

@@ -4,6 +4,14 @@ on:
   pull_request:
   push:
     branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   check:
@@ -19,3 +27,9 @@ jobs:
       - run: npm run typecheck
       - run: npm test
       - run: npm run build
+      # Nenhum segredo pode ir parar no código que o navegador baixa.
+      - name: Bundle sem segredos
+        run: |
+          if grep -rlE "ENCRYPTION_KEY|VERCEL_TOKEN" .next/static; then
+            echo "::error::Segredo encontrado no bundle do navegador"; exit 1
+          fi

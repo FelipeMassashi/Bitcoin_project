@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import type { Candle } from "@/lib/market/klines";
 import type { DailyPoint } from "@/lib/market/series";
-import { monthlyDca } from "./dca";
+import { monthlyDca, simulateDca } from "./dca";
 
 const DAY = 86_400_000;
 const candle = (time: number, close: number): Candle => ({ time, open: close, high: close, low: close, close, volume: 0 });
@@ -51,5 +51,37 @@ describe("monthlyDca", () => {
 
   it("começando depois do último dia da série, não há simulação", () => {
     expect(monthlyDca(daily, { start: Date.UTC(2024, 4, 1), total: 100, currency: "USD" })).toBeNull();
+  });
+});
+
+describe("simulateDca", () => {
+  const daily = series({ 0: 100, 1: 200, 2: 50, 3: 100 });
+
+  it("compra o mesmo valor toda semana a partir da data de início", () => {
+    const r = simulateDca(daily, { amount: 100, frequency: "semanal", start: Date.UTC(2024, 0, 1), end: Date.UTC(2024, 0, 31), currency: "USD" })!;
+    expect(r.buys.map((b) => new Date(b.time).getUTCDate())).toEqual([1, 8, 15, 22, 29]);
+    expect(r.invested).toBe(500);
+    expect(r.btc).toBeCloseTo(5, 12);
+  });
+
+  it("compra todo mês e para na data final", () => {
+    const r = simulateDca(daily, { amount: 100, frequency: "mensal", start: Date.UTC(2024, 0, 15), end: Date.UTC(2024, 2, 1), currency: "USD" })!;
+    expect(r.buys).toHaveLength(2);
+    expect(r.invested).toBe(200);
+    // 100/100 + 100/200
+    expect(r.btc).toBeCloseTo(1.5, 12);
+    expect(r.averagePrice).toBeCloseTo(200 / 1.5, 9);
+  });
+
+  it("o histórico mostra o valor acumulado e o total investido dia a dia até o fim", () => {
+    const r = simulateDca(daily, { amount: 100, frequency: "mensal", start: Date.UTC(2024, 0, 15), end: Date.UTC(2024, 2, 1), currency: "USD" })!;
+    const at = (y: number, m: number, d: number) => r.history.find((p) => p.time === Date.UTC(y, m, d))!;
+    expect(at(2024, 0, 15)).toEqual({ time: Date.UTC(2024, 0, 15), invested: 100, value: 100 });
+    expect(at(2024, 1, 15)).toEqual({ time: Date.UTC(2024, 1, 15), invested: 200, value: 300 });
+    expect(r.history.at(-1)!.time).toBe(Date.UTC(2024, 2, 1));
+  });
+
+  it("sem nenhuma compra no período, não há simulação", () => {
+    expect(simulateDca(daily, { amount: 100, frequency: "mensal", start: Date.UTC(2025, 0, 1), currency: "USD" })).toBeNull();
   });
 });

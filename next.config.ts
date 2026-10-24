@@ -10,6 +10,8 @@ const csp = [
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob:",
   "font-src 'self'",
+  // A simulação de Monte Carlo roda num Web Worker servido pelo próprio site.
+  "worker-src 'self'",
   "connect-src 'self' https://data-api.binance.vision wss://data-stream.binance.vision https://api.alternative.me",
   "object-src 'none'",
   "base-uri 'self'",

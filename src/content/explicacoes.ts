@@ -147,8 +147,8 @@ export const explicacoes = {
   },
   precoAlvo: {
     titulo: "Preço-alvo",
-    oQueE: "O preço do bitcoin em que você teria 25% de lucro sobre o seu preço médio.",
-    paraQueServe: "No gráfico, a linha tracejada âmbar é o preço-alvo (meta padrão de +25%) e a escura é o seu preço médio: mostram quão longe o preço está de cada um.",
+    oQueE: "O preço do bitcoin em que você atinge a sua Meta de lucro sobre o preço médio (padrão +25%, ajustável em Metas & projeções).",
+    paraQueServe: "No gráfico, a linha tracejada âmbar é o preço-alvo e a escura é o seu preço médio: mostram quão longe o preço está de cada um.",
   },
   valorVsAportado: {
     titulo: "Valor × investido",
@@ -164,6 +164,56 @@ export const explicacoes = {
     titulo: "Comparação com DCA mensal",
     oQueE: "DCA é investir o mesmo valor todo mês, sem tentar acertar o momento. Aqui tudo o que você aportou é dividido em compras mensais iguais, do seu primeiro aporte até hoje.",
     paraQueServe: "Mostra se escolher os momentos dos aportes ajudou ou atrapalhou, comparado com comprar no automático.",
+  },
+  meta: {
+    titulo: "Meta",
+    oQueE: "O lucro percentual que você quer sobre o seu preço médio. O padrão é +25%.",
+    paraQueServe: "Define o preço-alvo: o preço do bitcoin em que você teria esse lucro. A meta escolhida aqui também aparece no gráfico principal.",
+  },
+  altaNecessaria: {
+    titulo: "Alta necessária",
+    oQueE: "Quanto o preço de hoje precisa subir para chegar ao preço-alvo.",
+    paraQueServe: "É diferente da meta quando o preço atual não é igual ao seu preço médio. É a partir dela que se estima quanto tempo pode levar.",
+  },
+  aporteParaLucro: {
+    titulo: "Quanto aportar para um lucro em reais",
+    oQueE: "Quanto você precisaria aportar hoje para que esse dinheiro, sozinho, rendesse o lucro que você digitou ao atingir a sua meta a partir do preço de hoje.",
+    paraQueServe: "Lembra que o percentual de lucro não depende de quanto você investe: para lucrar mais em reais com a mesma alta, é preciso investir mais.",
+  },
+  novoAporte: {
+    titulo: "Efeito de um novo aporte",
+    oQueE: "Como ficariam o seu preço médio e o seu preço-alvo se você aportasse esse valor hoje, ao preço atual.",
+    paraQueServe: "Aportar abaixo do seu preço médio puxa o preço médio para baixo e deixa a meta mais perto; aportar acima, mais longe.",
+  },
+  tempoHistorico: {
+    titulo: "Tempo histórico até a meta",
+    oQueE: "Para cada dia do passado, quantos dias o bitcoin levou para subir a mesma alta necessária a partir do preço daquele dia.",
+    paraQueServe: "Mostra o que já aconteceu, não o que vai acontecer: dá uma noção de faixa de tempo, e de quantas vezes a alta simplesmente não veio no prazo.",
+  },
+  percentis: {
+    titulo: "Percentis (P25, P50, P80)",
+    oQueE: "P50 é o meio: em metade dos casos levou até esse tempo. P25 é o quarto mais rápido; P80, o tempo em que 80% dos casos já tinham chegado.",
+    paraQueServe: "Uma faixa é mais honesta do que uma data única. Quando um percentil diz \"não chegou\", é porque nem essa fração dos casos chegou em 2 anos.",
+  },
+  monteCarlo: {
+    titulo: "Simulação de Monte Carlo",
+    oQueE: "Milhares de caminhos possíveis para o preço, montados sorteando trechos de 30 dias seguidos do histórico real e emendando um no outro.",
+    paraQueServe: "Dá uma faixa de onde o preço costuma ficar e a chance de tocar o alvo em cada prazo, supondo que o futuro se pareça com o período escolhido. Não é previsão.",
+  },
+  chanceAlvo: {
+    titulo: "Chance de atingir a meta",
+    oQueE: "A fração dos caminhos simulados em que algum fechamento tocou o preço-alvo até aquele prazo, mesmo que o preço tenha caído depois.",
+    paraQueServe: "Compara prazos: mostra se a meta costuma vir rápido ou se exige paciência. Depende muito do período escolhido como base.",
+  },
+  leque: {
+    titulo: "Gráfico em leque",
+    oQueE: "Em cada data, a faixa mais escura vai do P25 ao P75 dos preços simulados (metade deles); a mais clara, do P10 ao P90 (80%). A linha do meio é a mediana de cada data.",
+    paraQueServe: "Quanto mais o leque abre, maior a incerteza. A linha tracejada é o preço-alvo.",
+  },
+  simuladorDca: {
+    titulo: "Simulador de DCA",
+    oQueE: "Simula ter comprado o mesmo valor toda semana ou todo mês, pelos preços reais de fechamento, desde a data escolhida até hoje.",
+    paraQueServe: "Mostra como investir no automático teria se saído, incluindo as quedas no caminho. Resultados passados não garantem os futuros.",
   },
 } satisfies Record<string, Explicacao>;
 

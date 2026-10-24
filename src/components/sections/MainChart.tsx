@@ -6,16 +6,13 @@ import { Explain } from "@/components/ui/Explain";
 import { Segmented } from "@/components/ui/Segmented";
 import { Skeleton } from "@/components/ui/Skeleton";
 import type { ExplicacaoId } from "@/content/explicacoes";
-import { formatMoney } from "@/lib/format/format";
+import { formatMoney, formatSignedPercent } from "@/lib/format/format";
 import { bollinger, sma, weeklyMovingAverage } from "@/lib/indicators/moving-averages";
 import { BTC_SYMBOL, candleIn } from "@/lib/market/currency";
 import { useLiveTickers } from "@/lib/market/live";
 import { useDailySeries, useIntraday } from "@/lib/market/queries";
 import { usePortfolioView } from "@/lib/portfolio/use-portfolio-view";
-import { useCurrency } from "@/lib/preferences";
-
-/** Meta padrão até a calculadora de Metas existir. */
-const DEFAULT_GOAL = 0.25;
+import { useCurrency, useGoal } from "@/lib/preferences";
 
 const DAY = 86_400_000;
 const PERIODS = [
@@ -47,6 +44,7 @@ function distance(price: number, reference: number | null | undefined, name: str
 
 export function MainChart() {
   const [currency] = useCurrency();
+  const [goal] = useGoal();
   const [period, setPeriod] = useState<Period>("1A");
   const [enabled, setEnabled] = useState<Record<OverlayId, boolean>>({
     mm50: false,
@@ -94,15 +92,16 @@ export function MainChart() {
   // Marcadores só para Aportes cadastrados um a um (ADR 0002), não para o Total investido com data aproximada.
   const detailed = stored?.cost?.kind === "aportes";
   const average = position?.averagePrice?.[currency];
+  const goalLabel = formatSignedPercent(goal, 0);
   const levels = useMemo<PriceLevel[]>(
     () =>
       average
         ? [
             { price: average, label: "seu preço médio", color: "ink" },
-            { price: average * (1 + DEFAULT_GOAL), label: "alvo +25%", color: "accent" },
+            { price: average * (1 + goal), label: `alvo ${goalLabel}`, color: "accent" },
           ]
         : [],
-    [average],
+    [average, goal, goalLabel],
   );
   const markers = useMemo<TradeMarker[]>(
     () =>
@@ -198,7 +197,7 @@ export function MainChart() {
             Seu preço médio e alvo{" "}
             <Explain
               id="precoAlvo"
-              now={`Preço médio ${fmt(average)}; alvo de +25% em ${fmt(average * (1 + DEFAULT_GOAL))}.${price ? ` O preço atual está ${distance(price, average * (1 + DEFAULT_GOAL), "meta")}.` : ""}`}
+              now={`Preço médio ${fmt(average)}; Preço-alvo (${goalLabel}) em ${fmt(average * (1 + goal))}.${price ? ` O preço atual está ${distance(price, average * (1 + goal), "meta")}.` : ""}`}
             />
           </span>
         )}

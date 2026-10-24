@@ -57,7 +57,7 @@ export function PortfolioSummary({ detailLink = true }: { detailLink?: boolean }
           <button
             type="button"
             onClick={() => openPortfolioDialog("binance")}
-            className="rounded-control bg-accent px-4 py-2 text-sm font-medium text-surface hover:opacity-90"
+            className="rounded-control bg-primary px-4 py-2 text-sm font-medium text-on-primary hover:opacity-90"
           >
             Conectar a Binance
           </button>

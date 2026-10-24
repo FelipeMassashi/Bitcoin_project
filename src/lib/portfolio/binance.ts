@@ -2,6 +2,7 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { z } from "zod";
+import { clearPortfolio, savePortfolio, type StoredPortfolio } from "./store";
 
 // O navegador só conversa com as rotas deste site; quem fala com a Binance é o servidor.
 const balanceSchema = z.object({
@@ -76,5 +77,15 @@ export function useBinanceActions() {
       await call("/api/binance/disconnect", { method: "POST" });
       queryClient.removeQueries({ queryKey: BALANCE_KEY });
     },
+  };
+}
+
+/** Apaga o cookie com a chave; o que o Visitante informou sobre o custo continua, agora como Fonte Manual. */
+export function useDisconnectBinance() {
+  const actions = useBinanceActions();
+  return async (stored: StoredPortfolio | null) => {
+    await actions.disconnect();
+    if (stored?.cost) await savePortfolio({ source: "manual", cost: stored.cost });
+    else await clearPortfolio();
   };
 }

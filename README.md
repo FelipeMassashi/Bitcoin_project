@@ -46,7 +46,7 @@ O custo do que você tem (total investido ou cada aporte) é sempre informado po
 ## Privacidade e segurança
 
 - **Sem cadastro e sem banco de dados.** O servidor não guarda nada de nenhum Visitante.
-- **Seus aportes e preferências** (moeda, meta, tema) ficam só no seu navegador, no IndexedDB e no localStorage.
+- **Seus aportes e preferências** (moeda, meta, tema) ficam só no seu navegador, no IndexedDB e no localStorage. Em **Configurações** dá para ver o que está guardado e apagar a chave da Binance, o investimento ou tudo de uma vez.
 - **As credenciais da Binance** vão uma vez para o servidor. Ele confere as permissões e devolve um cookie `httpOnly`, `Secure` e `SameSite=strict`, cifrado com AES-256-GCM pela `ENCRYPTION_KEY`, que vale por 30 dias. A Secret nunca volta para o navegador e nunca aparece em logs. **Desconectar** apaga o cookie.
 - **As requisições assinadas** (HMAC-SHA256) saem só do servidor, com relógio sincronizado (`/api/v3/time`), limite de chamadas por IP e cache de 60 segundos.
 - **Uma CSP rígida** só deixa o navegador falar com o próprio site, com as APIs públicas de mercado da Binance (`data-api.binance.vision` e `data-stream.binance.vision`) e com o índice de medo e ganância (`api.alternative.me`). Não há analytics nem scripts de terceiros. O gradiente animado é desenhado no seu aparelho, sem baixar nada de fora.
@@ -118,6 +118,6 @@ Para usar:
 
 ## Visual
 
-- **Paleta "Safra":** açafrão, vinho e petróleo sobre uma base neutra. Todas as cores são tokens em `src/app/globals.css`, nos temas claro e escuro, e os gráficos leem os mesmos tokens.
+- **Paleta preto e amarelo:** base preta ou grafite claro, com amarelo nos destaques e no botão principal. Todas as cores são tokens em `src/app/globals.css`, nos temas claro e escuro, e os gráficos leem os mesmos tokens.
 - **Gradiente animado:** [ShaderGradient](https://shadergradient.co/), carregado sob demanda. Ele pausa fora da tela e vira um gradiente estático quando o aparelho pede menos movimento ou não tem WebGL.
 - **Componentes:** [Cult UI](https://www.cult-ui.com/) em `src/components/cult/`: o número do preço que rola, o seletor de moeda e a moldura dos blocos com gradiente. Foram adaptados às cores e à acessibilidade do projeto.

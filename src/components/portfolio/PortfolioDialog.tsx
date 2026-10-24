@@ -4,7 +4,14 @@ import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { Segmented } from "@/components/ui/Segmented";
 import { formatBtc, type Currency } from "@/lib/format/format";
 import { useDailySeries } from "@/lib/market/queries";
-import { ConnectionError, isCredentialError, useBinanceActions, useBinanceBalance, type BtcBalance } from "@/lib/portfolio/binance";
+import {
+  ConnectionError,
+  isCredentialError,
+  useBinanceActions,
+  useBinanceBalance,
+  useDisconnectBinance,
+  type BtcBalance,
+} from "@/lib/portfolio/binance";
 import { computePosition } from "@/lib/portfolio/position";
 import { clearPortfolio, savePortfolio, usePortfolio, type StoredPortfolio } from "@/lib/portfolio/store";
 import { FIRST_DAY, formFrom, newRow, parseForm, type CostForm, type Row } from "./cost-form";
@@ -26,7 +33,7 @@ const CURRENCIES = [
 const input =
   "num w-full rounded-control border border-line-strong bg-paper px-3 py-2 text-sm text-ink placeholder:text-muted/70 focus:border-accent focus:outline-none";
 const primary =
-  "rounded-control bg-accent px-4 py-2 text-sm font-medium text-surface transition-opacity hover:opacity-90 disabled:opacity-50";
+  "rounded-control bg-primary px-4 py-2 text-sm font-medium text-on-primary transition-opacity hover:opacity-90 disabled:opacity-50";
 const secondary = "rounded-control border border-line-strong px-4 py-2 text-sm text-ink transition-colors hover:bg-paper";
 
 function Field({ label, hint, children }: { label: string; hint?: string; children: (id: string) => ReactNode }) {
@@ -105,18 +112,15 @@ function BinanceTab({ stored }: { stored: StoredPortfolio | null }) {
   // Cookie expirado ou chave revogada: volta para o formulário de conexão.
   const expired = isCredentialError(balance.error);
   const connected = stored?.source === "binance" && !expired;
-  const actions = useBinanceActions();
+  const disconnectBinance = useDisconnectBinance();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Apaga o cookie com a chave; o que o Visitante informou sobre o custo continua, agora como Fonte Manual.
   async function disconnect() {
     setBusy(true);
     setError(null);
     try {
-      await actions.disconnect();
-      if (stored?.cost) await savePortfolio({ source: "manual", cost: stored.cost });
-      else await clearPortfolio();
+      await disconnectBinance(stored);
     } catch (err) {
       setError(err instanceof ConnectionError ? err.message : "Não foi possível desconectar. Tente de novo.");
     } finally {

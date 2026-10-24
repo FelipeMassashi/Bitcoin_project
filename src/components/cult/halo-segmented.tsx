@@ -2,7 +2,7 @@
 
 // Cult UI · halo-segmented (https://www.cult-ui.com/docs/components/halo-segmented).
 // Ajustes locais: cores do projeto no lugar dos tokens do shadcn, halo com o gradiente da marca
-// (açafrão, vinho, petróleo) e radios nativos no lugar dos toggles, como o Segmented do projeto:
+// (amarelo, ouro escuro, preto) e radios nativos no lugar dos toggles, como o Segmented do projeto:
 // o leitor de tela anuncia "1 de 2" e as setas trocam a opção.
 import { useCallback, useLayoutEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";

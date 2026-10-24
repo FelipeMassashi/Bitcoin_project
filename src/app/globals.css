@@ -7,69 +7,80 @@
  */
 :root {
   color-scheme: light;
-  --paper: #f3f4f1;
-  --surface: #fcfcfa;
-  --ink: #172120;
-  --muted: #58635f;
-  --line: #e3e6e1;
-  --line-strong: #cbd1cc;
-  --accent: #975c08;
-  --accent-soft: #f4ead9;
-  --accent-2: #1d6668;
-  --up: #24774f;
-  --down: #b23f3a;
-  --up-soft: #e1efe7;
-  --down-soft: #f6e4e1;
+  --paper: #f4f4f2;
+  --surface: #ffffff;
+  --ink: #111111;
+  --muted: #5b5b58;
+  --line: #e4e4e0;
+  --line-strong: #cdcdc8;
+  --accent: #856100;
+  --accent-soft: #fbf3d4;
+  --accent-2: #c99a06;
+  --up: #23764e;
+  --down: #b23b33;
+  --up-soft: #e2f0e7;
+  --down-soft: #f8e5e2;
+  /* Botão principal: amarelo com texto preto nos dois temas. */
+  --primary: #f5c518;
+  --on-primary: #111111;
+  /* Gradiente da marca: amarelo, ouro escuro e preto. Só decoração; texto nunca fica direto sobre ele. */
+  --grad-1: #f5c518;
+  --grad-2: #6b5200;
+  --grad-3: #0a0a0a;
   /* Moldura do bloco com gradiente (TextureCard): raio e brilho das bordas. */
   --radius-hero: 20px;
   --bevel-hi: rgb(255 255 255 / 0.6);
-  /* Gradiente da marca: açafrão, vinho e petróleo. Só decoração; texto nunca fica direto sobre ele. */
-  --grad-1: #e3a03e;
-  --grad-2: #7a2d3c;
-  --grad-3: #11494d;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="claro"]) {
     color-scheme: dark;
-    --paper: #0e1516;
-    --surface: #141e20;
-    --ink: #e6ecea;
-    --muted: #93a29e;
-    --line: #213033;
-    --line-strong: #334649;
-    --accent: #eeb14a;
-    --accent-soft: #2b261b;
-    --accent-2: #62bdb7;
-    --up: #68c293;
-    --down: #ef8a7d;
-    --up-soft: #16291f;
-    --down-soft: #33201e;
-    --grad-1: #d18f2f;
-    --grad-2: #662535;
-    --grad-3: #0c3d41;
+    --paper: #0a0a0a;
+    --surface: #141414;
+    --ink: #f2f1ec;
+    --muted: #a19f99;
+    --line: #242424;
+    --line-strong: #383836;
+    --accent: #f5c518;
+    --accent-soft: #2a240c;
+    --accent-2: #c99a06;
+    --up: #5fc48d;
+    --down: #f0806f;
+    --up-soft: #13261b;
+    --down-soft: #301a17;
+    /* Botão principal: amarelo com texto preto nos dois temas. */
+    --primary: #f5c518;
+    --on-primary: #111111;
+    /* Gradiente da marca: amarelo, ouro escuro e preto. Só decoração; texto nunca fica direto sobre ele. */
+    --grad-1: #e0b310;
+    --grad-2: #5a4500;
+    --grad-3: #070707;
     --bevel-hi: rgb(255 255 255 / 0.07);
   }
 }
 
 :root[data-theme="escuro"] {
   color-scheme: dark;
-  --paper: #0e1516;
-  --surface: #141e20;
-  --ink: #e6ecea;
-  --muted: #93a29e;
-  --line: #213033;
-  --line-strong: #334649;
-  --accent: #eeb14a;
-  --accent-soft: #2b261b;
-  --accent-2: #62bdb7;
-  --up: #68c293;
-  --down: #ef8a7d;
-  --up-soft: #16291f;
-  --down-soft: #33201e;
-  --grad-1: #d18f2f;
-  --grad-2: #662535;
-  --grad-3: #0c3d41;
+  --paper: #0a0a0a;
+  --surface: #141414;
+  --ink: #f2f1ec;
+  --muted: #a19f99;
+  --line: #242424;
+  --line-strong: #383836;
+  --accent: #f5c518;
+  --accent-soft: #2a240c;
+  --accent-2: #c99a06;
+  --up: #5fc48d;
+  --down: #f0806f;
+  --up-soft: #13261b;
+  --down-soft: #301a17;
+  /* Botão principal: amarelo com texto preto nos dois temas. */
+  --primary: #f5c518;
+  --on-primary: #111111;
+  /* Gradiente da marca: amarelo, ouro escuro e preto. Só decoração; texto nunca fica direto sobre ele. */
+  --grad-1: #e0b310;
+  --grad-2: #5a4500;
+  --grad-3: #070707;
   --bevel-hi: rgb(255 255 255 / 0.07);
 }
 
@@ -77,11 +88,11 @@
 .on-gradient {
   color-scheme: dark;
   --ink: #ffffff;
-  --muted: #d3dcda;
-  --surface: #172224;
+  --muted: #d6d5d0;
+  --surface: #161616;
   --line: rgb(255 255 255 / 0.16);
   --line-strong: rgb(255 255 255 / 0.28);
-  --accent: #f3be5e;
+  --accent: #f5c518;
   --accent-soft: rgb(255 255 255 / 0.12);
   --up: #7fd7a8;
   --down: #ffa194;
@@ -90,9 +101,9 @@
 
 /* Véu escuro entre o gradiente e o texto: o gradiente pode clarear, o contraste não. */
 .gradient-veil {
-  background: rgb(7 13 14 / 0.66);
+  background: rgb(8 8 8 / 0.66);
   @media (min-width: 48rem) {
-    background: linear-gradient(100deg, rgb(7 13 14 / 0.8) 0%, rgb(7 13 14 / 0.6) 55%, rgb(7 13 14 / 0.42) 100%);
+    background: linear-gradient(100deg, rgb(8 8 8 / 0.8) 0%, rgb(8 8 8 / 0.6) 55%, rgb(8 8 8 / 0.42) 100%);
   }
 }
 
@@ -106,6 +117,8 @@
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
   --color-accent-2: var(--accent-2);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
     --color-up: var(--up);
   --color-down: var(--down);
   --color-up-soft: var(--up-soft);

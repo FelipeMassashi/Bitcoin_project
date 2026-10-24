@@ -12,13 +12,23 @@ const NAV = [
   { href: "/configuracoes", label: "Configurações", short: "Ajustes" },
 ] as const;
 
+// Marca da seção atual com o gradiente da marca (a cor nunca é o único sinal: o texto também muda).
+const ACTIVE_BAR = "rounded-full bg-[linear-gradient(135deg,var(--grad-1),var(--grad-2),var(--accent-2))]";
+
 const DISCLAIMER = "Ferramenta de análise. Não é recomendação de investimento.";
 
 function Mark() {
   // Monograma: um "₿" desenhado como duas barras sobre um anel, sem usar emoji nem logo de marca.
   return (
-    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-6 text-accent">
-      <circle cx="12" cy="12" r="10.25" fill="none" stroke="currentColor" strokeWidth="1.5" />
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="size-6 text-ink">
+      <defs>
+        <linearGradient id="marca-anel" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" style={{ stopColor: "var(--grad-1)" }} />
+          <stop offset="0.55" style={{ stopColor: "var(--grad-2)" }} />
+          <stop offset="1" style={{ stopColor: "var(--accent-2)" }} />
+        </linearGradient>
+      </defs>
+      <circle cx="12" cy="12" r="10.25" fill="none" stroke="url(#marca-anel)" strokeWidth="1.75" />
       <path d="M9 7.5h4.25a2.25 2.25 0 0 1 0 4.5H9m0 0h4.75a2.25 2.25 0 0 1 0 4.5H9m0-9v9M10.5 6v1.5m2 0V6m-2 12v-1.5m2 1.5v-1.5" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />
     </svg>
   );
@@ -42,8 +52,9 @@ export function Sidebar() {
               key={href}
               href={href}
               aria-current={isActive(href) ? "page" : undefined}
-              className="rounded-control px-2.5 py-2 text-[0.92rem] text-muted transition-colors hover:text-ink aria-[current=page]:bg-accent-soft aria-[current=page]:font-medium aria-[current=page]:text-ink"
+              className="relative rounded-control px-3 py-2 text-[0.92rem] text-muted transition-colors hover:text-ink aria-[current=page]:bg-accent-soft aria-[current=page]:font-medium aria-[current=page]:text-ink"
             >
+              {isActive(href) && <span aria-hidden="true" className={`${ACTIVE_BAR} absolute inset-y-2 left-0 w-[3px]`} />}
               {label}
             </Link>
           ))}
@@ -64,8 +75,9 @@ export function Sidebar() {
               href={href}
               aria-label={label}
               aria-current={isActive(href) ? "page" : undefined}
-              className="px-1 py-3 text-center text-[0.72rem] leading-tight text-muted aria-[current=page]:font-medium aria-[current=page]:text-accent"
+              className="relative px-1 py-3 text-center text-[0.72rem] leading-tight text-muted aria-[current=page]:font-medium aria-[current=page]:text-ink"
             >
+              {isActive(href) && <span aria-hidden="true" className={`${ACTIVE_BAR} absolute inset-x-4 top-0 h-[3px]`} />}
               {short}
             </Link>
           ))}

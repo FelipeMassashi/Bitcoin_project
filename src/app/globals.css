@@ -7,52 +7,93 @@
  */
 :root {
   color-scheme: light;
-  --paper: #faf9f7;
-  --surface: #ffffff;
-  --ink: #1d1c1a;
-  --muted: #6c6862;
-  --line: #eceae6;
-  --line-strong: #d9d6d0;
-  --accent: #9a6812;
-  --accent-soft: #f6eedf;
-  --up: #2e7d55;
-  --down: #b4473b;
-  --up-soft: #e4f0e8;
-  --down-soft: #f7e6e3;
+  --paper: #f3f4f1;
+  --surface: #fcfcfa;
+  --ink: #172120;
+  --muted: #58635f;
+  --line: #e3e6e1;
+  --line-strong: #cbd1cc;
+  --accent: #975c08;
+  --accent-soft: #f4ead9;
+  --accent-2: #1d6668;
+  --up: #24774f;
+  --down: #b23f3a;
+  --up-soft: #e1efe7;
+  --down-soft: #f6e4e1;
+  /* Moldura do bloco com gradiente (TextureCard): raio e brilho das bordas. */
+  --radius-hero: 20px;
+  --bevel-hi: rgb(255 255 255 / 0.6);
+  /* Gradiente da marca: açafrão, vinho e petróleo. Só decoração; texto nunca fica direto sobre ele. */
+  --grad-1: #e3a03e;
+  --grad-2: #7a2d3c;
+  --grad-3: #11494d;
 }
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="claro"]) {
     color-scheme: dark;
-    --paper: #141312;
-    --surface: #1c1b19;
-    --ink: #eeece8;
-    --muted: #9d9890;
-    --line: #2c2a27;
-    --line-strong: #403d39;
-    --accent: #e5ad4b;
-    --accent-soft: #2e261a;
-    --up: #6fbf8e;
-    --down: #e8877a;
-    --up-soft: #1b2b21;
-    --down-soft: #35211e;
+    --paper: #0e1516;
+    --surface: #141e20;
+    --ink: #e6ecea;
+    --muted: #93a29e;
+    --line: #213033;
+    --line-strong: #334649;
+    --accent: #eeb14a;
+    --accent-soft: #2b261b;
+    --accent-2: #62bdb7;
+    --up: #68c293;
+    --down: #ef8a7d;
+    --up-soft: #16291f;
+    --down-soft: #33201e;
+    --grad-1: #d18f2f;
+    --grad-2: #662535;
+    --grad-3: #0c3d41;
+    --bevel-hi: rgb(255 255 255 / 0.07);
   }
 }
 
 :root[data-theme="escuro"] {
   color-scheme: dark;
-  --paper: #141312;
-  --surface: #1c1b19;
-  --ink: #eeece8;
-  --muted: #9d9890;
-  --line: #2c2a27;
-  --line-strong: #403d39;
-  --accent: #e5ad4b;
-  --accent-soft: #2e261a;
-  --up: #6fbf8e;
-  --down: #e8877a;
-  --up-soft: #1b2b21;
-  --down-soft: #35211e;
+  --paper: #0e1516;
+  --surface: #141e20;
+  --ink: #e6ecea;
+  --muted: #93a29e;
+  --line: #213033;
+  --line-strong: #334649;
+  --accent: #eeb14a;
+  --accent-soft: #2b261b;
+  --accent-2: #62bdb7;
+  --up: #68c293;
+  --down: #ef8a7d;
+  --up-soft: #16291f;
+  --down-soft: #33201e;
+  --grad-1: #d18f2f;
+  --grad-2: #662535;
+  --grad-3: #0c3d41;
+  --bevel-hi: rgb(255 255 255 / 0.07);
+}
+
+/* Conteúdo sobre o gradiente: sempre claro sobre escuro, nos dois temas (contraste AA sobre o véu escuro). */
+.on-gradient {
+  color-scheme: dark;
+  --ink: #ffffff;
+  --muted: #d3dcda;
+  --surface: #172224;
+  --line: rgb(255 255 255 / 0.16);
+  --line-strong: rgb(255 255 255 / 0.28);
+  --accent: #f3be5e;
+  --accent-soft: rgb(255 255 255 / 0.12);
+  --up: #7fd7a8;
+  --down: #ffa194;
+  color: var(--ink);
+}
+
+/* Véu escuro entre o gradiente e o texto: o gradiente pode clarear, o contraste não. */
+.gradient-veil {
+  background: rgb(7 13 14 / 0.66);
+  @media (min-width: 48rem) {
+    background: linear-gradient(100deg, rgb(7 13 14 / 0.8) 0%, rgb(7 13 14 / 0.6) 55%, rgb(7 13 14 / 0.42) 100%);
+  }
 }
 
 @theme inline {
@@ -64,7 +105,8 @@
   --color-line-strong: var(--line-strong);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
-  --color-up: var(--up);
+  --color-accent-2: var(--accent-2);
+    --color-up: var(--up);
   --color-down: var(--down);
   --color-up-soft: var(--up-soft);
   --color-down-soft: var(--down-soft);

@@ -4,7 +4,7 @@ import { useSyncExternalStore } from "react";
 
 // Os gráficos desenham em canvas e não enxergam CSS: lemos os mesmos tokens de globals.css
 // e avisamos quando o tema muda (atributo data-theme ou preferência do sistema).
-const TOKENS = ["paper", "surface", "ink", "muted", "line", "line-strong", "accent", "up", "down"] as const;
+const TOKENS = ["paper", "surface", "ink", "muted", "line", "line-strong", "accent", "up", "down", "grad-1", "grad-2", "grad-3"] as const;
 export type ThemeColors = Record<(typeof TOKENS)[number], string>;
 
 let cache: ThemeColors | null = null;

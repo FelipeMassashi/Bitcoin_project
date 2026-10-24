@@ -79,14 +79,16 @@ export function PriceHero() {
 
       <div className="flex flex-col gap-4 md:items-end">
         <HaloSegmented name="moeda" label="Moeda" items={CURRENCIES} value={currency} onValueChange={setCurrency} />
-        <dl className="flex gap-5 rounded-control bg-black/50 px-3 py-2 md:gap-6">
-          <Change label="24 horas" value={changes.d1} />
-          <Change label="7 dias" value={changes.d7} />
-          <Change label="30 dias" value={changes.d30} />
-          <div className="self-end pb-0.5">
+        <div className="flex items-end gap-5 rounded-control bg-black/50 px-3 py-2 md:gap-6">
+          <dl className="flex gap-5 md:gap-6">
+            <Change label="24 horas" value={changes.d1} />
+            <Change label="7 dias" value={changes.d7} />
+            <Change label="30 dias" value={changes.d30} />
+          </dl>
+          <div className="pb-0.5">
             <Explain id="variacao" now={changeNow} />
           </div>
-        </dl>
+        </div>
       </div>
     </GradientPanel>
   );

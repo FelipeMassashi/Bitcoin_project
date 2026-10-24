@@ -120,7 +120,7 @@ export function PortfolioDetail() {
           Quais aportes estão no lucro?
           <Explain id="lucroPorAporte" />
         </h2>
-        <div className="mt-4 overflow-x-auto">
+        <div className="mt-4 overflow-x-auto" tabIndex={0} role="region" aria-label="Tabela do resultado por aporte">
           <table className="num w-full min-w-[36rem] text-sm">
             <thead>
               <tr className="text-left text-xs text-muted">

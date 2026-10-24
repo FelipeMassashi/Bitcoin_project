@@ -43,7 +43,7 @@ export function HalvingCycle() {
           : `Em ${topsAfter} dos ${previous.length} ciclos anteriores o topo ainda estava por vir a esta altura.`}
       </p>
 
-      <div className="mt-5 overflow-x-auto">
+      <div className="mt-5 overflow-x-auto" tabIndex={0} role="region" aria-label="Tabela dos ciclos do halving">
         <table className="num w-full min-w-[32rem] text-sm">
           <thead>
             <tr className="text-left text-xs text-muted">

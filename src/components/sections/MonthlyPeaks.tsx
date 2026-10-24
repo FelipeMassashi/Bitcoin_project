@@ -108,11 +108,11 @@ export function MonthlyPeaks() {
       </div>
 
       <h3 className="mt-10 font-medium">Meses anteriores</h3>
-      <div className="mt-3 overflow-x-auto">
-        <table className="num w-full min-w-[40rem] text-sm">
+      <div className="mt-3 overflow-x-auto" tabIndex={0} role="region" aria-label="Tabela dos meses anteriores">
+        <table className="num w-full min-w-[40rem] text-sm whitespace-nowrap">
           <thead>
             <tr className="text-right text-xs text-muted">
-              <th className="py-2 pr-4 text-left font-normal">Mês</th>
+              <th className="sticky left-0 bg-surface py-2 pr-4 text-left font-normal">Mês</th>
               <th className="py-2 pr-4 font-normal">Abertura</th>
               <th className="py-2 pr-4 font-normal">Pico</th>
               <th className="py-2 pr-4 font-normal">Mínima</th>
@@ -126,7 +126,7 @@ export function MonthlyPeaks() {
           <tbody className="divide-y divide-line text-right">
             {rows.map((m) => (
               <tr key={`${m.year}-${m.month}`}>
-                <th scope="row" className="py-2.5 pr-4 text-left font-normal">{shortMonth(monthDate(m))}</th>
+                <th scope="row" className="sticky left-0 bg-surface py-2.5 pr-4 text-left font-normal">{shortMonth(monthDate(m))}</th>
                 <td className="py-2.5 pr-4">{fmt(m.open)}</td>
                 <td className="py-2.5 pr-4">{fmt(m.high)}</td>
                 <td className="py-2.5 pr-4">{fmt(m.low)}</td>
@@ -208,11 +208,11 @@ export function MonthlyHeatmap() {
         Pela mediana desde 2011, {MONTH_LABELS[best]} costuma ser o melhor mês ({formatSignedPercent(medians[best], 0)}) e{" "}
         {MONTH_LABELS[worst]} o pior ({formatSignedPercent(medians[worst], 0)}). Mesmo assim, todos os meses já tiveram anos de alta e de queda.
       </p>
-      <div className="mt-5 overflow-x-auto">
+      <div className="mt-5 overflow-x-auto" tabIndex={0} role="region" aria-label="Mapa de calor dos retornos mensais">
         <table className="num w-full min-w-[46rem] border-separate border-spacing-0.5 text-[0.72rem]">
           <thead>
             <tr className="text-muted">
-              <th className="w-12 py-1 text-left font-normal">Ano</th>
+              <th className="sticky left-0 w-12 bg-surface py-1 text-left font-normal">Ano</th>
               {MONTH_LABELS.map((m) => (
                 <th key={m} className="py-1 font-normal">{m}</th>
               ))}
@@ -221,7 +221,7 @@ export function MonthlyHeatmap() {
           <tbody>
             {years.map((year) => (
               <tr key={year}>
-                <th scope="row" className="py-1 pr-2 text-left font-normal text-muted">{year}</th>
+                <th scope="row" className="sticky left-0 bg-surface py-1 pr-2 text-left font-normal text-muted">{year}</th>
                 {byYear.get(year)!.map((m, i) =>
                   m ? (
                     <td

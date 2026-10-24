@@ -179,7 +179,7 @@ export function SignalPanel() {
             Retorno mediano e pior caso, em dólar, de todos os dias desde{" "}
             {since ? new Date(since).toLocaleDateString("pt-BR", { month: "long", year: "numeric", timeZone: "UTC" }) : "o início"}.
           </p>
-          <div className="mt-4 overflow-x-auto">
+          <div className="mt-4 overflow-x-auto" tabIndex={0} role="region" aria-label="Tabela do backtest por zona">
             <table className="num w-full min-w-[34rem] text-sm">
               <thead>
                 <tr className="text-left text-xs text-muted">

@@ -107,18 +107,18 @@ export function MonteCarloFan() {
             ))}
           </dl>
 
-          <div className="mt-6 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted" aria-hidden="true">
+          <div className="mt-6 flex flex-wrap gap-x-5 gap-y-1 text-xs text-muted">
             <span className="inline-flex items-center gap-1.5">
-              <span className="inline-block h-3 w-4 rounded-sm bg-accent/45" /> P25–P75 (metade dos preços)
+              <span aria-hidden="true" className="inline-block h-3 w-4 rounded-sm bg-accent/45" /> P25–P75 (metade dos preços)
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="inline-block h-3 w-4 rounded-sm bg-accent/20" /> P10–P90 (80%)
+              <span aria-hidden="true" className="inline-block h-3 w-4 rounded-sm bg-accent/20" /> P10–P90 (80%)
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="inline-block h-0.5 w-4 rounded bg-accent" /> mediana
+              <span aria-hidden="true" className="inline-block h-0.5 w-4 rounded bg-accent" /> mediana
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="inline-block w-4 border-t border-dashed border-ink" /> preço-alvo
+              <span aria-hidden="true" className="inline-block w-4 border-t border-dashed border-ink" /> preço-alvo
             </span>
             <Explain id="leque" />
           </div>

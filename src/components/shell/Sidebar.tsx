@@ -66,7 +66,7 @@ export function Sidebar() {
       </aside>
 
       {/* Celular: barra inferior com o aviso logo acima. */}
-      <div className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-paper/95 backdrop-blur-sm md:hidden">
+      <footer className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-paper/95 backdrop-blur-sm md:hidden">
         <p className="border-b border-line px-4 py-1.5 text-center text-[0.7rem] text-muted">{DISCLAIMER}</p>
         <nav aria-label="Seções" className="grid grid-cols-5">
           {NAV.map(({ href, label, short }) => (
@@ -82,7 +82,7 @@ export function Sidebar() {
             </Link>
           ))}
         </nav>
-      </div>
+      </footer>
     </>
   );
 }
